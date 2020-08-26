@@ -10,16 +10,16 @@
 
 package org.eclipse.milo.examples.client;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.sdk.client.api.nodes.Node;
 import org.eclipse.milo.opcua.stack.core.Identifiers;
 import org.eclipse.milo.opcua.stack.core.types.builtin.NodeId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class BrowseNodeExample implements ClientExample {
 
@@ -37,7 +37,11 @@ public class BrowseNodeExample implements ClientExample {
         client.connect().get();
 
         // start browsing at root folder
+        long startTime = System.currentTimeMillis();
         browseNode("", client, Identifiers.RootFolder);
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("耗时：" + (endTime - startTime));
 
         future.complete(client);
     }
